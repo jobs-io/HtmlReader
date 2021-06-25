@@ -20,20 +20,15 @@ namespace HtmlReader.Tests {
     }
 
     public class Reader {
-        private readonly string html;
-        private readonly HtmlDocument document;
         private readonly HtmlNode documentNode;
 
         public Reader(string html) {
-            this.html = html;
-            this.document = new HtmlDocument();
-            this.document.LoadHtml(this.html);
-            this.documentNode = this.document.DocumentNode;
+            var document = new HtmlDocument();
+            document.LoadHtml(html);
+            this.documentNode = document.DocumentNode;
         }
         public string Html(string path) {
-            var document = new HtmlAgilityPack.HtmlDocument();
-            document.LoadHtml(this.html);
-            return this.document.DocumentNode.SelectSingleNode(path).InnerHtml;
+            return documentNode.SelectSingleNode(path).InnerHtml;
         }
 
         public string Text(string path) {
