@@ -25,7 +25,8 @@ namespace HtmlReader.Tests {
 
         [Test]
         public void ParseScript() {
-            Assert.AreEqual("{\"givenNumber\":12}", reader.ParseScript("//script"));
+            var template = "(function() {{ var window = {{}}; {0}; return window; }})()";
+            Assert.AreEqual("{\"givenNumber\":12}", reader.ParseScript("//script", template));
         }
     }
 
@@ -45,11 +46,10 @@ namespace HtmlReader.Tests {
             return documentNode.SelectSingleNode(path).InnerText;
         }
 
-        public string ParseScript(string path) {
+        public string ParseScript(string path, string template) {
             var engine = new ScriptEngine();
             var script = documentNode.SelectSingleNode(path).InnerText;
     
-            var template = "(function() {{ var window = {{}}; {0}; return window; }})()";
             var parsedScript = engine.Evaluate(string.Format(template, script));
     
             return JSONObject.Stringify(engine, parsedScript) as string;
