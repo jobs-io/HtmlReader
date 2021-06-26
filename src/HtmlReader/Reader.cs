@@ -2,7 +2,7 @@ using HtmlAgilityPack;
 using Jurassic;
 using Jurassic.Library;
 
-namespace HtmlReader.Tests
+namespace HtmlReader
 {
     public class Reader {
         private readonly HtmlNode documentNode;
