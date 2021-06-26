@@ -48,8 +48,10 @@ namespace HtmlReader.Tests {
         public string ParseScript(string path) {
             var engine = new ScriptEngine();
             var script = documentNode.SelectSingleNode(path).InnerText;
-            
-            var parsedScript = engine.Evaluate($"(function() {{ var window = {{}}; {script}; return window; }})()");
+    
+            var template = "(function() {{ var window = {{}}; {0}; return window; }})()";
+            var parsedScript = engine.Evaluate(string.Format(template, script));
+    
             return JSONObject.Stringify(engine, parsedScript) as string;
         }
     }
