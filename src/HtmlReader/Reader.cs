@@ -1,3 +1,4 @@
+using System.Linq;
 using HtmlAgilityPack;
 using Jurassic;
 using Jurassic.Library;
@@ -16,6 +17,10 @@ namespace HtmlReader
         }
         public string Html(string path) {
             return documentNode.SelectSingleNode(path).InnerHtml;
+        }
+
+        public string[] HtmlItems(string path) {
+            return documentNode.SelectNodes(path).Select(x => x.InnerHtml).ToArray();
         }
 
         public string Text(string path) {
